@@ -3,24 +3,28 @@ Centralized app settings, loaded from environment variables / .env.
 Nothing in this file should ever contain a real secret — see .env.example
 for the variables this expects, and .env (gitignored) for real values.
 """
+
 from functools import lru_cache
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
     # App
     APP_NAME: str = "AI Resume Builder & Career Assistant"
-    ENVIRONMENT: str = "development"  # development | production
+    ENVIRONMENT: str = "development"
     API_V1_PREFIX: str = "/api"
 
     # CORS — comma-separated list of allowed origins
-   CORS_ORIGINS: str = "http://localhost:5173"
+    CORS_ORIGINS: str = "http://localhost:5173,https://ai-resume-builder-topaz-zeta.vercel.app"
 
     # OpenAI
-    OPENAI_API_KEY: str = ""  # left blank until you add a key; AIService falls
-                               # back to mock responses when this is empty
+    OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-4o-mini"
 
     # Database
@@ -28,7 +32,11 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins_list(self) -> list[str]:
-        return [origin.strip() for origin in self.CORS_ORIGINS.split(",") if origin.strip()]
+        return [
+            origin.strip()
+            for origin in self.CORS_ORIGINS.split(",")
+            if origin.strip()
+        ]
 
     @property
     def ai_enabled(self) -> bool:
