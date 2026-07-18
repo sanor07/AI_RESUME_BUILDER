@@ -15,46 +15,46 @@ import { api } from './api.js';
 
 export function generateSummary({ jobTitle, experiences, skills }) {
   return api
-    .post('/generate-summary', { job_title: jobTitle, experiences, skills })
+    .post('generate-summary', { job_title: jobTitle, experiences, skills })
     .then((r) => r.data);
 }
 
 export function saveResume(resume) {
-  return api.post('/save-resume', { resume }).then((r) => r.data);
+  return api.post('save-resume', { resume }).then((r) => r.data);
 }
 
 export function rewriteExperience({ role, company, desc }) {
-  return api.post('/rewrite-experience', { role, company, desc }).then((r) => r.data);
+  return api.post('rewrite-experience', { role, company, desc }).then((r) => r.data);
 }
 
 export function generateProjectDescription({ projectName, techStack, rawNotes }) {
   return api
-    .post('/generate-project', { project_name: projectName, tech_stack: techStack, raw_notes: rawNotes })
+    .post('generate-project', { project_name: projectName, tech_stack: techStack, raw_notes: rawNotes })
     .then((r) => r.data);
 }
 
 export function generateSkills({ jobTitle, experienceSummary }) {
   return api
-    .post('/generate-skills', { job_title: jobTitle, experience_summary: experienceSummary })
+    .post('generate-skills', { job_title: jobTitle, experience_summary: experienceSummary })
     .then((r) => r.data);
 }
 
 export function improveResume({ rawResumeText }) {
   return api
-    .post('/improve-resume', { raw_resume_text: rawResumeText })
+    .post('improve-resume', { raw_resume_text: rawResumeText })
     .then((r) => r.data);
 }
 
 export function getAtsScore({ resume }) {
-  return api.post('/ats-score', { resume }).then((r) => r.data);
+  return api.post('ats-score', { resume }).then((r) => r.data);
 }
 
 export function matchJobDescription({ resume, jobDescription }) {
   return api
-    .post('/job-match', { resume, job_description: jobDescription })
+    .post('job-match', { resume, job_description: jobDescription })
     .then((r) => r.data);
 }
 
 export function exportPdf({ resume, template }) {
-  return api.post('/export-pdf', { resume, template }, { responseType: 'blob' }).then((r) => r.data);
+  return api.post('export-pdf', { resume, template }, { responseType: 'blob' }).then((r) => r.data);
 }

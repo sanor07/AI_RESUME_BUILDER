@@ -157,10 +157,6 @@ docker compose up --build
 
 ---
 
-## Screenshots
-
-(Add screenshots here before final submission.)
-
 ---
 
 ## Future Improvements

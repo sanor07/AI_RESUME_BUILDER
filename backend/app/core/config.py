@@ -7,6 +7,12 @@ for the variables this expects, and .env (gitignored) for real values.
 from functools import lru_cache
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+ALLOWED_CORS_ORIGINS = (
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://ai-resume-builder-topaz-zeta.vercel.app",
+)
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -21,11 +27,7 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api"
 
     # CORS - comma-separated list of allowed origins
-    CORS_ORIGINS: str = (
-        "http://localhost:5173,"
-        "http://127.0.0.1:5173,"
-        "https://ai-resume-builder-u81yk2rdh-morvexissite.vercel.app"
-    )
+    CORS_ORIGINS: str = ",".join(ALLOWED_CORS_ORIGINS)
 
     # OpenAI
     OPENAI_API_KEY: str = ""
@@ -36,11 +38,7 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins_list(self) -> list[str]:
-        return [
-            origin.strip()
-            for origin in self.CORS_ORIGINS.split(",")
-            if origin.strip()
-        ]
+        return list(dict.fromkeys(ALLOWED_CORS_ORIGINS))
 
     @property
     def ai_enabled(self) -> bool:
