@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api"
 
     # CORS — comma-separated list of allowed origins
-    CORS_ORIGINS: str = "http://localhost:5173"
+   CORS_ORIGINS: str = "http://localhost:5173,https://ai-resume-builder-topaz-zeta.vercel.app"
 
     # OpenAI
     OPENAI_API_KEY: str = ""  # left blank until you add a key; AIService falls
