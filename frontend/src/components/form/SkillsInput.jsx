@@ -8,6 +8,7 @@ export default function SkillsInput() {
   const [value, setValue] = useState('');
   const inputRef = useRef(null);
   const [loading, setLoading] = useState(false);
+
   const commit = (raw) => {
     const name = raw.trim();
     if (name) actions.addSkill(name);
@@ -26,35 +27,35 @@ export default function SkillsInput() {
   const handleBlur = () => {
     if (value.trim()) commit(value);
   };
+
   const handleGenerateSkills = async () => {
-  if (!state.fields.jobTitle) {
-    alert("Please enter a Job Title first.");
-    return;
-  }
+    if (!state.fields.jobTitle) {
+      alert('Please enter a Job Title first.');
+      return;
+    }
 
-  setLoading(true);
+    setLoading(true);
 
-  try {
-    const result = await generateSkills({
-      jobTitle: state.fields.jobTitle,
-      experienceSummary: state.experiences
-        .map((e) => e.desc)
-        .join("\n"),
-    });
+    try {
+      const result = await generateSkills({
+        jobTitle: state.fields.jobTitle,
+        experienceSummary: state.experiences.map((e) => e.desc).join('\n'),
+      });
 
-    result.skills.forEach((skill) => {
-      if (!state.skills.includes(skill)) {
-        actions.addSkill(skill);
-      }
-    });
-  } catch (err) {
-    alert(err.message || "Failed to generate skills.");
-  } finally {
-    setLoading(false);
-  }
-};
+      result.skills.forEach((skill) => {
+        if (!state.skills.includes(skill)) {
+          actions.addSkill(skill);
+        }
+      });
+    } catch (err) {
+      alert(err.message || 'Failed to generate skills.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <FormSection icon="ph-lightning" title="Skills">
+    <FormSection id="skills" icon="ph-lightning" title="Skills">
       <div className="field">
         <label htmlFor="skillsInput">Add Skills (press Enter or comma to add)</label>
         <div className="tag-input-wrapper" onClick={() => inputRef.current?.focus()}>
@@ -71,7 +72,7 @@ export default function SkillsInput() {
                     actions.removeSkill(i);
                   }}
                 >
-                  ✕
+                  <i className="ph ph-x" />
                 </button>
               </span>
             ))}
@@ -80,23 +81,23 @@ export default function SkillsInput() {
             ref={inputRef}
             id="skillsInput"
             type="text"
-            placeholder="e.g. React, Python, Figma…"
+            placeholder="e.g. React, Python, Figma..."
             autoComplete="off"
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
           />
-          <button
-  type="button"
-  className="add-btn mt-2"
-  onClick={handleGenerateSkills}
-  disabled={loading}
->
-  <i className="ph ph-sparkle" />
-  {loading ? "Generating..." : "Generate Skills"}
-</button>
         </div>
+        <button
+          type="button"
+          className="add-btn mt-3"
+          onClick={handleGenerateSkills}
+          disabled={loading}
+        >
+          <i className="ph ph-sparkle" />
+          {loading ? 'Generating...' : 'Generate Skills'}
+        </button>
       </div>
     </FormSection>
   );

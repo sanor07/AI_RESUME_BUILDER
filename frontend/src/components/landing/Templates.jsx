@@ -51,16 +51,19 @@ export default function Templates() {
           {templates.map((template) => (
             <div
               key={template.name}
-              className="group rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 hover:border-yellow-400 transition duration-300 hover:-translate-y-2"
+              className="group relative overflow-hidden rounded-3xl border border-slate-700/60 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-yellow-400 hover:shadow-[0_30px_80px_rgba(250,204,21,0.18)]"
             >
-
+              <div
+               className={`absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br ${template.color} opacity-10 blur-3xl transition group-hover:opacity-30`}
+              />
               {/* Preview */}
 
-              <div className="relative bg-white h-[520px] p-8 overflow-hidden">
+              <div className="relative h-[520px] overflow-hidden bg-white p-8 transition duration-700 group-hover:scale-[1.03]">
 
                 <div
-                  className={`absolute top-0 left-0 w-full h-3 bg-gradient-to-r ${template.color}`}
-                />
+                  className={`absolute top-0 left-0 w-full h-3 bg-gradient-to-r ${template.color}`}>
+                    ATS Ready
+                </div>
 
                 <div className="flex items-center gap-4 mb-8">
 
@@ -140,7 +143,7 @@ export default function Templates() {
 
                 <Link
                   to="/builder"
-                  className="mt-8 inline-flex items-center gap-2 font-semibold text-yellow-400 group-hover:gap-4 transition-all"
+                  className="mt-8 inline-flex items-center rounded-full bg-yellow-500/10 px-5 py-3 font-semibold text-yellow-400 transition-all duration-300 group-hover:bg-yellow-500/20 group-hover:gap-4"
                 >
                   Use Template
 

@@ -34,6 +34,7 @@ export default function ExperienceList() {
 
   return (
     <FormSection
+      id="experience"
       icon="ph-briefcase"
       title="Work Experience"
       action={
@@ -88,7 +89,7 @@ export default function ExperienceList() {
                     rows={3}
                     full
                     label="Description / Responsibilities"
-                    placeholder="• Key responsibilities and achievements…"
+                    placeholder="Key responsibilities and achievements..."
                     value={exp.desc}
                     onChange={(e) => actions.updateExperience(exp.id, 'desc', e.target.value)}
                   />
@@ -99,7 +100,7 @@ export default function ExperienceList() {
                     disabled={isRewriting}
                   >
                     <i className="ph ph-sparkle" />
-                    {isRewriting ? 'Rewriting...' : '✨ Rewrite with AI'}
+                    {isRewriting ? 'Rewriting...' : 'Rewrite with AI'}
                   </button>
                 </div>
               </div>

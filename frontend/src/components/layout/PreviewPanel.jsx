@@ -21,36 +21,39 @@ const PreviewPanel = forwardRef(function PreviewPanel(_, canvasRef) {
     photo: state.photoDataUrl,
   };
 
-  // Same clamp/step as the original setZoom().
   const zoomBy = (delta) => actions.setZoom(state.zoomLevel + delta);
   const wrapperPadBottom =
-    state.zoomLevel < 1 ? `${32 + (1 - state.zoomLevel) * 200}px` : '32px';
+    state.zoomLevel < 1 ? `${40 + (1 - state.zoomLevel) * 220}px` : '40px';
 
   return (
-    <section className="panel panel--preview">
-      <div className="preview-toolbar">
-        <span className="preview-toolbar__label">
-          <i className="ph ph-eye" /> Live Preview
-        </span>
-        <div className="zoom-controls">
-          <button className="zoom-btn" onClick={() => zoomBy(-0.1)}>
-            <i className="ph ph-minus" />
-          </button>
-          <span>{Math.round(state.zoomLevel * 100)}%</span>
-          <button className="zoom-btn" onClick={() => zoomBy(0.1)}>
-            <i className="ph ph-plus" />
-          </button>
+    <section className="preview-panel">
+      <div className="preview-panel__shell">
+        <div className="preview-panel__toolbar">
+          <div>
+            <span>
+              <i className="ph ph-eye" /> Live Preview
+            </span>
+            <strong>A4 page 1 of 1</strong>
+          </div>
+          <div className="zoom-controls" aria-label="Preview zoom controls">
+            <button className="zoom-btn" onClick={() => zoomBy(-0.1)} title="Zoom out">
+              <i className="ph ph-minus" />
+            </button>
+            <span id="zoomLabel">{Math.round(state.zoomLevel * 100)}%</span>
+            <button className="zoom-btn" onClick={() => zoomBy(0.1)} title="Zoom in">
+              <i className="ph ph-plus" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div className="preview-canvas-wrapper" style={{ paddingBottom: wrapperPadBottom }}>
-        <ResumePreviewCanvas
-          ref={canvasRef}
-          data={data}
-          template={state.currentTemplate}
-          className=""
-          style={{ transform: `scale(${state.zoomLevel})` }}
-        />
+        <div className="preview-canvas-wrapper" style={{ paddingBottom: wrapperPadBottom }}>
+          <ResumePreviewCanvas
+            ref={canvasRef}
+            data={data}
+            template={state.currentTemplate}
+            style={{ transform: `scale(${state.zoomLevel})` }}
+          />
+        </div>
       </div>
     </section>
   );

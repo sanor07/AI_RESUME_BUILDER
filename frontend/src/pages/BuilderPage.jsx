@@ -40,8 +40,6 @@ export default function BuilderPage() {
     }
   };
 
-  // Ported from resetForm(), minus the manual DOM clearing — the
-  // reducer's RESET action already restores initialState.
   const handleReset = () => {
     if (!confirm('Reset all fields and start fresh? This cannot be undone.')) return;
     actions.reset();
@@ -51,7 +49,7 @@ export default function BuilderPage() {
   const handleGenerateSummary = async () => {
     const fieldErrors = validateResumeFields(state.fields);
     setErrors(fieldErrors);
-    if (fieldErrors.jobTitle) return; // need a job title to generate against
+    if (fieldErrors.jobTitle) return;
 
     setGeneratingSummary(true);
     try {
@@ -69,9 +67,9 @@ export default function BuilderPage() {
   };
 
   return (
-    <>
+    <div className="builder-page">
       <TopBar onExport={handleExport} onReset={handleReset} />
-      <main className="workspace">
+      <main className="builder-workspace">
         <FormPanel
           errors={errors}
           onGenerateSummary={handleGenerateSummary}
@@ -80,6 +78,6 @@ export default function BuilderPage() {
         />
         <PreviewPanel ref={previewRef} />
       </main>
-    </>
+    </div>
   );
 }

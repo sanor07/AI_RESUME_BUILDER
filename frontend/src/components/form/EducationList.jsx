@@ -7,6 +7,7 @@ export default function EducationList() {
 
   return (
     <FormSection
+      id="education"
       icon="ph-graduation-cap"
       title="Education"
       action={
@@ -16,9 +17,7 @@ export default function EducationList() {
       }
     >
       <div className="entries-list">
-        {state.educations.length === 0 && (
-          <p className="empty-entries">No education added yet.</p>
-        )}
+        {state.educations.length === 0 && <p className="empty-entries">No education added yet.</p>}
         {state.educations.map((edu) => (
           <div className="entry-card" key={edu.id}>
             <button
@@ -44,7 +43,7 @@ export default function EducationList() {
               />
               <Field
                 label="Year / Period"
-                placeholder="2018 – 2022"
+                placeholder="2018 - 2022"
                 value={edu.year}
                 onChange={(e) => actions.updateEducation(edu.id, 'year', e.target.value)}
               />
@@ -53,7 +52,7 @@ export default function EducationList() {
                 rows={2}
                 full
                 label="Additional Info (optional)"
-                placeholder="GPA, honours, relevant coursework…"
+                placeholder="GPA, honors, relevant coursework..."
                 value={edu.desc}
                 onChange={(e) => actions.updateEducation(edu.id, 'desc', e.target.value)}
               />

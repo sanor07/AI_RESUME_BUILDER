@@ -10,7 +10,7 @@ export default function PersonalInfoForm({ errors, onGenerateSummary, generating
   const set = (key) => (e) => actions.setField(key, e.target.value);
 
   return (
-    <FormSection icon="ph-user-circle" title="Personal Info">
+    <FormSection id="personal" icon="ph-user-circle" title="Personal Info">
       <PhotoUpload />
 
       <div className="form-grid">
@@ -40,7 +40,7 @@ export default function PersonalInfoForm({ errors, onGenerateSummary, generating
         as="textarea"
         rows={3}
         full
-        placeholder="A brief statement about your professional background and goals…"
+        placeholder="A brief statement about your professional background and goals..."
         value={fields.summary}
         onChange={set('summary')}
         className="mt-3"
@@ -53,7 +53,7 @@ export default function PersonalInfoForm({ errors, onGenerateSummary, generating
           disabled={generatingSummary}
         >
           <i className="ph ph-sparkle" />
-          {generatingSummary ? 'Generating…' : 'Generate with AI'}
+          {generatingSummary ? 'Generating...' : 'Generate with AI'}
         </button>
       )}
     </FormSection>

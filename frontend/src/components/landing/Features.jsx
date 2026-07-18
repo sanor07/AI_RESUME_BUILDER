@@ -68,7 +68,7 @@ export default function Features() {
             FEATURES
           </span>
 
-          <h2 className="mt-6 text-5xl lg:text-6xl font-black">
+          <h2 className="mt-6 text-5xl lg:text-6xl font-black leading-tight">
             Everything You Need
           </h2>
 
@@ -88,14 +88,14 @@ export default function Features() {
             return (
               <div
                 key={feature.title}
-                className="group relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 p-8 hover:border-yellow-400 transition-all duration-300 hover:-translate-y-2"
+                className="group relative overflow-hidden rounded-3xl border border-slate-700/70 bg-white/5 backdrop-blur-xl p-8 transition-all duration-500 hover:-translate-y-3 hover:border-yellow-400 hover:shadow-[0_25px_60px_rgba(250,204,21,0.18)]"
               >
                 <div
                   className={`absolute -top-12 -right-12 w-44 h-44 rounded-full bg-gradient-to-br ${feature.color} opacity-10 blur-3xl group-hover:opacity-25 transition`}
                 ></div>
 
                 <div
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center`}
+                 className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110`}
                 >
                   <Icon className="text-white" size={30} />
                 </div>
@@ -108,7 +108,7 @@ export default function Features() {
                   {feature.description}
                 </p>
 
-                <div className="mt-8 flex items-center text-yellow-400 font-semibold">
+                <div className="mt-8 inline-flex items-center rounded-full bg-yellow-500/10 px-4 py-2 text-yellow-400 font-semibold transition group-hover:bg-yellow-500/20">
                   Learn More
                   <span className="ml-2 group-hover:translate-x-2 transition">
                     →

@@ -1,6 +1,11 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useResume } from '../../contexts/ResumeContext.jsx';
 import { improveResume, getAtsScore, matchJobDescription } from '../../services/aiService.js';
+import {
+  getAtsEstimate,
+  getMissingKeywordHints,
+  getResumeCompletion,
+} from '../../utils/resumeMetrics.js';
 
 export default function AiPanel({ onExport }) {
   const { state, actions } = useResume();
@@ -9,6 +14,9 @@ export default function AiPanel({ onExport }) {
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const resumeScore = useMemo(() => getResumeCompletion(state), [state]);
+  const atsEstimate = useMemo(() => getAtsEstimate(state), [state]);
+  const missingKeywords = useMemo(() => getMissingKeywordHints(state), [state]);
 
   const buildResumeText = () => {
     const sections = [];
@@ -94,22 +102,81 @@ export default function AiPanel({ onExport }) {
     }
   };
 
+  const tabs = [
+    { id: 'improve', label: 'Improve', icon: 'ph-magic-wand' },
+    { id: 'ats', label: 'ATS', icon: 'ph-shield-check' },
+    { id: 'match', label: 'Match', icon: 'ph-crosshair' },
+  ];
+
   return (
-    <div className="form-section">
-      <div className="form-section__title">
-        <i className="ph ph-sparkle" /> AI Assistant
+    <div className="ai-panel">
+      <div className="ai-panel__header">
+        <div className="ai-panel__icon">
+          <i className="ph ph-sparkle" />
+        </div>
+        <div>
+          <p>AI Assistant</p>
+          <h3>Resume intelligence</h3>
+        </div>
       </div>
-      <div className="template-switcher" style={{ marginBottom: 12 }}>
-        <button className={`tpl-btn ${tab === 'improve' ? 'active' : ''}`} onClick={() => setTab('improve')}>
-          Improve Resume
-        </button>
-        <button className={`tpl-btn ${tab === 'ats' ? 'active' : ''}`} onClick={() => setTab('ats')}>
-          ATS Score
-        </button>
-        <button className={`tpl-btn ${tab === 'match' ? 'active' : ''}`} onClick={() => setTab('match')}>
-          Job Match
-        </button>
+
+      <div className="ai-score-grid">
+        <div>
+          <span>Resume Score</span>
+          <strong>{resumeScore}</strong>
+        </div>
+        <div>
+          <span>ATS Score</span>
+          <strong>{result?.type === 'ats' ? result.data.score : atsEstimate}</strong>
+        </div>
       </div>
+
+      <div className="strength-meter">
+        <div>
+          <span>Resume strength</span>
+          <strong>{resumeScore >= 80 ? 'Strong' : resumeScore >= 55 ? 'Getting close' : 'Needs detail'}</strong>
+        </div>
+        <div className="builder-progress">
+          <span style={{ width: `${resumeScore}%` }} />
+        </div>
+      </div>
+
+      <div className="keyword-cloud">
+        <span>Missing Keywords</span>
+        <div>
+          {missingKeywords.length ? (
+            missingKeywords.map((keyword) => <small key={keyword}>{keyword}</small>)
+          ) : (
+            <small>Well covered</small>
+          )}
+        </div>
+      </div>
+
+      <div className="ai-suggestions">
+        <span>AI Suggestions</span>
+        <p>Add measurable impact, mirror target job keywords, and keep bullets action-led.</p>
+      </div>
+
+      <div className="ai-tabs">
+        {tabs.map((item) => (
+          <button
+            key={item.id}
+            className={tab === item.id ? 'is-active' : ''}
+            onClick={() => setTab(item.id)}
+          >
+            <i className={`ph ${item.icon}`} />
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      {loading && (
+        <div className="loading-skeleton" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+      )}
 
       {tab === 'improve' && (
         <>
@@ -123,7 +190,8 @@ export default function AiPanel({ onExport }) {
               onChange={(e) => setResumeText(e.target.value)}
             />
           </div>
-          <button className="btn btn--primary" onClick={handleImprove} disabled={loading}>
+          <button className="btn btn--primary mt-3 w-full justify-center" onClick={handleImprove} disabled={loading}>
+            <i className="ph ph-magic-wand" />
             {loading ? 'Improving...' : 'Improve Resume'}
           </button>
         </>
@@ -131,11 +199,12 @@ export default function AiPanel({ onExport }) {
 
       {tab === 'ats' && (
         <>
-          <button className="btn btn--primary" onClick={handleAts} disabled={loading}>
+          <button className="btn btn--primary w-full justify-center" onClick={handleAts} disabled={loading}>
+            <i className="ph ph-shield-check" />
             {loading ? 'Checking ATS...' : 'Get ATS Score'}
           </button>
           {result?.type === 'ats' && (
-            <div className="entry-card" style={{ marginTop: 12 }}>
+            <div className="entry-card mt-3">
               <strong>ATS Score: {result.data.score}</strong>
               <p>Missing Keywords: {result.data.missing_keywords?.join(', ') || 'None'}</p>
               <p>Strengths: {result.data.strengths?.join(', ') || 'None'}</p>
@@ -157,11 +226,12 @@ export default function AiPanel({ onExport }) {
               onChange={(e) => setJobDescription(e.target.value)}
             />
           </div>
-          <button className="btn btn--primary" onClick={handleMatch} disabled={loading}>
+          <button className="btn btn--primary mt-3 w-full justify-center" onClick={handleMatch} disabled={loading}>
+            <i className="ph ph-crosshair" />
             {loading ? 'Matching...' : 'Check Job Match'}
           </button>
           {result?.type === 'match' && (
-            <div className="entry-card" style={{ marginTop: 12 }}>
+            <div className="entry-card mt-3">
               <strong>Match: {result.data.match_percentage}%</strong>
               <p>Missing Skills: {result.data.missing_skills?.join(', ') || 'None'}</p>
               <p>Missing Keywords: {result.data.missing_keywords?.join(', ') || 'None'}</p>
@@ -171,7 +241,8 @@ export default function AiPanel({ onExport }) {
         </>
       )}
 
-      <button className="btn btn--ghost" onClick={handleExport} disabled={loading} style={{ marginTop: 12 }}>
+      <button className="btn btn--ghost mt-3 w-full justify-center" onClick={handleExport} disabled={loading}>
+        <i className="ph ph-download-simple" />
         {loading ? 'Exporting...' : 'Export PDF'}
       </button>
     </div>

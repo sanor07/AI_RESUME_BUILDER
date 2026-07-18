@@ -27,8 +27,13 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="bg-slate-950 text-white py-28">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative overflow-hidden bg-slate-950 text-white py-28">
+        <div className="absolute inset-0">
+  <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl"></div>
+
+  <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-3xl"></div>
+</div>
+      <div className="relative max-w-7xl mx-auto px-6">
 
         <div className="text-center max-w-3xl mx-auto">
 
@@ -68,10 +73,13 @@ export default function HowItWorks() {
 
                   {/* Card */}
 
-                  <div className="relative rounded-3xl border border-slate-800 bg-slate-900 p-10 hover:border-yellow-400 transition duration-300">
+                 <div className="group relative overflow-hidden rounded-3xl border border-slate-700/60 bg-white/5 backdrop-blur-xl p-10 transition-all duration-500 hover:-translate-y-3 hover:border-yellow-400 hover:shadow-[0_30px_80px_rgba(250,204,21,.18)]">
+                    <div
+                      className={`absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br ${step.color} opacity-10 blur-3xl transition group-hover:opacity-30`}
+                    />
 
                     <div
-                      className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center`}
+                      className={`flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br ${step.color} transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110`}
                     >
                       <Icon className="text-white" size={34} />
                     </div>
@@ -90,7 +98,9 @@ export default function HowItWorks() {
 
                   <div className="flex justify-center">
 
-                    <div className="w-36 h-36 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-2xl">
+                    <div className="relative flex h-36 w-36 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_20px_60px_rgba(250,204,21,.35)]">
+
+                      <div className="absolute inset-2 rounded-full border-2 border-white/20"></div>
 
                       <span className="text-6xl font-black text-slate-900">
                         {index + 1}
@@ -112,7 +122,7 @@ export default function HowItWorks() {
 
           <Link
             to="/builder"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-slate-900 px-10 py-5 rounded-xl font-bold text-lg hover:scale-105 transition"
+            className="inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-500 px-10 py-5 text-lg font-bold text-slate-900 transition-all duration-300 hover:scale-105 hover:shadow-[0_20px_50px_rgba(250,204,21,.35)]"
           >
             Start Building Your Resume
           </Link>

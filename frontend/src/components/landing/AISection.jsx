@@ -100,8 +100,8 @@ export default function AISection() {
 
           <div className="relative">
 
-            <div className="rounded-3xl border border-slate-700 bg-slate-950 p-8 shadow-2xl">
-
+            <div className="relative overflow-hidden rounded-3xl border border-slate-700/60 bg-white/5 backdrop-blur-xl p-8 shadow-[0_30px_80px_rgba(0,0,0,.45)]">
+            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-yellow-400/10 blur-3xl"></div>
               <div className="flex items-center gap-4 mb-8">
 
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
@@ -116,16 +116,58 @@ export default function AISection() {
                     AI Resume Analysis
                   </h3>
 
-                  <p className="text-gray-400">
-                    Processing...
-                  </p>
+                  <div className="flex items-center gap-2 text-emerald-400 font-medium">
+
+                  <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></div>
+
+                  Analysis Complete
+
+                </div>
 
                 </div>
 
               </div>
 
               <div className="space-y-6">
+            <div className="mb-8 grid grid-cols-3 gap-4">
 
+  <div className="rounded-2xl bg-slate-800 p-4 text-center">
+
+    <p className="text-3xl font-black text-yellow-400">
+      98%
+    </p>
+
+    <p className="mt-1 text-xs text-gray-400">
+      ATS Score
+    </p>
+
+  </div>
+
+  <div className="rounded-2xl bg-slate-800 p-4 text-center">
+
+    <p className="text-3xl font-black text-green-400">
+      12
+    </p>
+
+    <p className="mt-1 text-xs text-gray-400">
+      Keywords
+    </p>
+
+  </div>
+
+  <div className="rounded-2xl bg-slate-800 p-4 text-center">
+
+    <p className="text-3xl font-black text-cyan-400">
+      0
+    </p>
+
+    <p className="mt-1 text-xs text-gray-400">
+      Grammar
+    </p>
+
+  </div>
+
+</div>
                 <div className="flex gap-4">
 
                   <Wand2 className="text-yellow-400 mt-1" />
@@ -168,7 +210,7 @@ export default function AISection() {
 
                 </div>
 
-                <div className="rounded-2xl bg-slate-800 p-6">
+                <div className="rounded-2xl border border-yellow-400/20 bg-yellow-500/5 p-6">
 
                   <p className="text-yellow-400 font-semibold mb-3">
                     AI Suggestion
@@ -178,7 +220,27 @@ export default function AISection() {
                     Add measurable achievements and technical keywords to
                     significantly improve recruiter visibility.
                   </p>
+<div className="mt-5 rounded-xl bg-slate-900 p-4">
 
+  <p className="mb-2 text-xs text-gray-500">
+    BEFORE
+  </p>
+
+  <p className="text-gray-400">
+    Worked on multiple React projects.
+  </p>
+
+  <div className="my-4 h-px bg-slate-700"></div>
+
+  <p className="mb-2 text-xs text-emerald-400">
+    AFTER
+  </p>
+
+  <p className="text-white">
+    Developed scalable React applications improving user engagement by 35%.
+  </p>
+
+</div>
                 </div>
 
               </div>

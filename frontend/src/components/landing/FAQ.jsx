@@ -38,82 +38,57 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section
-      id="faq"
-      className="bg-slate-950 text-white py-28"
-    >
-      <div className="max-w-5xl mx-auto px-6">
+    <section id="faq" className="relative overflow-hidden bg-slate-950 py-28 text-white">
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-[480px] w-[480px] rounded-full bg-cyan-500/10 blur-3xl" />
+      </div>
 
-        <div className="text-center mb-20">
-
-          <span className="inline-block px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-400/20 text-yellow-400 font-semibold">
+      <div className="relative mx-auto max-w-5xl px-6">
+        <div className="mb-20 text-center">
+          <span className="inline-flex items-center rounded-full border border-yellow-400/20 bg-yellow-500/10 px-4 py-2 font-semibold text-yellow-400">
             FAQ
           </span>
 
-          <h2 className="mt-6 text-5xl lg:text-6xl font-black">
-            Frequently Asked Questions
+          <h2 className="mt-6 text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+            Everything you need to know before you begin
           </h2>
 
-          <p className="mt-6 text-lg text-gray-400">
-            Everything you need to know before creating your resume.
+          <p className="mt-6 text-lg leading-8 text-gray-400">
+            Clear answers, thoughtful guidance, and a smooth experience from first draft to final export.
           </p>
-
         </div>
 
-        <div className="space-y-5">
-
+        <div className="space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = open === index;
 
             return (
               <div
                 key={faq.question}
-                className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden"
+                className="overflow-hidden rounded-[24px] border border-slate-700/60 bg-white/5 backdrop-blur-xl"
               >
-
                 <button
-                  onClick={() =>
-                    setOpen(isOpen ? -1 : index)
-                  }
-                  className="w-full flex items-center justify-between px-8 py-6 text-left hover:bg-slate-800 transition"
+                  onClick={() => setOpen(isOpen ? -1 : index)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center justify-between px-8 py-6 text-left transition hover:bg-white/5"
                 >
-
-                  <span className="text-xl font-semibold">
-                    {faq.question}
-                  </span>
+                  <span className="text-lg font-semibold text-white sm:text-xl">{faq.question}</span>
 
                   <ChevronDown
-                    className={`transition duration-300 ${
-                      isOpen ? "rotate-180 text-yellow-400" : ""
-                    }`}
+                    className={`transition duration-300 ${isOpen ? "rotate-180 text-yellow-400" : "text-gray-400"}`}
                   />
-
                 </button>
 
-                <div
-                  className={`grid transition-all duration-300 ${
-                    isOpen
-                      ? "grid-rows-[1fr]"
-                      : "grid-rows-[0fr]"
-                  }`}
-                >
-
+                <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
                   <div className="overflow-hidden">
-
-                    <p className="px-8 pb-8 text-gray-400 leading-8">
-                      {faq.answer}
-                    </p>
-
+                    <p className="px-8 pb-8 text-base leading-8 text-gray-400">{faq.answer}</p>
                   </div>
-
                 </div>
-
               </div>
             );
           })}
-
         </div>
-
       </div>
     </section>
   );

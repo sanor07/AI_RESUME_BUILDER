@@ -19,7 +19,10 @@ export default function ProjectList() {
     try {
       const result = await generateProjectDescription({
         projectName: project.name,
-        techStack: project.techStack.split(',').map((item) => item.trim()).filter(Boolean),
+        techStack: project.techStack
+          .split(',')
+          .map((item) => item.trim())
+          .filter(Boolean),
         rawNotes: project.notes,
       });
       actions.updateProject(project.id, 'desc', result?.description || result?.desc || '');
@@ -32,6 +35,7 @@ export default function ProjectList() {
 
   return (
     <FormSection
+      id="projects"
       icon="ph-projector-screen"
       title="Projects"
       action={
@@ -73,7 +77,7 @@ export default function ProjectList() {
                   rows={3}
                   full
                   label="Notes"
-                  placeholder="Key features, impact, and context…"
+                  placeholder="Key features, impact, and context..."
                   value={project.notes}
                   onChange={(e) => actions.updateProject(project.id, 'notes', e.target.value)}
                 />
@@ -83,7 +87,7 @@ export default function ProjectList() {
                     rows={3}
                     full
                     label="Description"
-                    placeholder="Generated project description will appear here…"
+                    placeholder="Generated project description will appear here..."
                     value={project.desc}
                     onChange={(e) => actions.updateProject(project.id, 'desc', e.target.value)}
                   />
@@ -94,7 +98,7 @@ export default function ProjectList() {
                     disabled={isGenerating}
                   >
                     <i className="ph ph-sparkle" />
-                    {isGenerating ? 'Generating...' : '✨ Generate with AI'}
+                    {isGenerating ? 'Generating...' : 'Generate with AI'}
                   </button>
                 </div>
               </div>

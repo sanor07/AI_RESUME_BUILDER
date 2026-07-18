@@ -26,88 +26,62 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="relative overflow-hidden bg-slate-900 text-white py-28">
-
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/3 w-96 h-96 rounded-full bg-yellow-500/10 blur-3xl"></div>
+    <section className="relative overflow-hidden bg-slate-950 py-28 text-white">
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/3 top-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-blue-600/10 blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6">
-
-        <div className="text-center max-w-3xl mx-auto mb-20">
-
-          <span className="inline-block px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-400/20 text-yellow-400 font-semibold">
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="mx-auto mb-20 max-w-3xl text-center">
+          <span className="inline-flex items-center rounded-full border border-yellow-400/20 bg-yellow-500/10 px-4 py-2 text-sm font-semibold text-yellow-400">
             TESTIMONIALS
           </span>
 
-          <h2 className="mt-6 text-5xl lg:text-6xl font-black">
-            Trusted by Professionals
+          <h2 className="mt-6 text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+            Trusted by professionals who value clarity and speed
           </h2>
 
-          <p className="mt-6 text-lg text-gray-400 leading-8">
-            Thousands of students and professionals use ResuméForge
-            to create interview-winning resumes.
+          <p className="mt-6 text-lg leading-8 text-gray-400">
+            Thousands of job seekers use ResuméForge to turn their experience into polished, recruiter-ready stories.
           </p>
-
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-
+        <div className="grid gap-8 lg:grid-cols-3">
           {testimonials.map((item) => (
             <div
               key={item.name}
-              className="group relative rounded-3xl border border-slate-800 bg-slate-950 p-8 hover:border-yellow-400 transition-all duration-300 hover:-translate-y-2"
+              className="group relative rounded-[28px] border border-slate-700/60 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-yellow-400 hover:shadow-[0_25px_70px_rgba(250,204,21,0.16)]"
             >
-
-              <div className="absolute top-8 right-8 text-yellow-400 opacity-30 group-hover:opacity-100 transition">
-                <Quote size={36} />
+              <div className="absolute right-8 top-8 text-yellow-400 opacity-30 transition duration-500 group-hover:opacity-100">
+                <Quote size={34} />
               </div>
 
-              <div className="flex gap-1 text-yellow-400 mb-6">
+              <div className="mb-6 flex gap-1 text-yellow-400">
                 {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={18}
-                    fill="currentColor"
-                  />
+                  <Star key={i} size={18} fill="currentColor" />
                 ))}
               </div>
 
-              <p className="text-gray-300 leading-8">
-                "{item.review}"
+              <p className="text-base leading-8 text-gray-300">
+                “{item.review}”
               </p>
 
               <div className="mt-10 flex items-center gap-4">
-
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-slate-900 font-bold text-lg">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 text-lg font-black text-slate-900">
                   {item.name.charAt(0)}
                 </div>
 
                 <div>
-
-                  <h3 className="font-bold text-lg">
-                    {item.name}
-                  </h3>
-
-                  <p className="text-gray-400">
-                    {item.role}
-                  </p>
-
-                  <p className="text-yellow-400 text-sm mt-1">
-                    {item.company}
-                  </p>
-
+                  <h3 className="text-lg font-bold">{item.name}</h3>
+                  <p className="text-gray-400">{item.role}</p>
+                  <p className="mt-1 text-sm font-medium text-yellow-400">{item.company}</p>
                 </div>
-
               </div>
-
             </div>
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 }

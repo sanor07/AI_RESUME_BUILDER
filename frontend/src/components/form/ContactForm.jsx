@@ -8,7 +8,7 @@ export default function ContactForm({ errors }) {
   const set = (key) => (e) => actions.setField(key, e.target.value);
 
   return (
-    <FormSection icon="ph-address-book" title="Contact Details">
+    <FormSection id="contact" icon="ph-address-book" title="Contact Details">
       <div className="form-grid">
         <Field
           id="email"

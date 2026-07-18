@@ -15,7 +15,11 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 w-full z-50">
       <div className="mx-auto max-w-7xl px-6 pt-5">
-        <nav className="backdrop-blur-xl bg-slate-900/70 border border-slate-700 rounded-2xl shadow-2xl">
+        <nav className="relative overflow-hidden backdrop-blur-xl bg-slate-900/70 border border-slate-700 rounded-2xl shadow-2xl">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+            <div className="absolute -left-1/2 top-0 h-full w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-navbar-shine"></div>
+          </div>
+
           <div className="h-20 flex items-center justify-between px-6">
 
             {/* Logo */}
