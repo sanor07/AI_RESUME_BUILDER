@@ -1,6 +1,6 @@
 """
 Centralized app settings, loaded from environment variables / .env.
-Nothing in this file should ever contain a real secret — see .env.example
+Nothing in this file should ever contain a real secret - see .env.example
 for the variables this expects, and .env (gitignored) for real values.
 """
 
@@ -20,8 +20,12 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     API_V1_PREFIX: str = "/api"
 
-    # CORS — comma-separated list of allowed origins
-    CORS_ORIGINS: str = "http://localhost:5173,https://ai-resume-builder-topaz-zeta.vercel.app"
+    # CORS - comma-separated list of allowed origins
+    CORS_ORIGINS: str = (
+        "http://localhost:5173,"
+        "http://127.0.0.1:5173,"
+        "https://ai-resume-builder-u81yk2rdh-morvexissite.vercel.app"
+    )
 
     # OpenAI
     OPENAI_API_KEY: str = ""
